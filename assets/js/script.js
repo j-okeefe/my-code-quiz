@@ -5,7 +5,7 @@ var questionsDiv = document.querySelector("#questions");
 var container = document.querySelector("#container");
 
 var score = 0;
-var questionsIndex = 0;
+var questionIndex = 0;
 
 var secondsLeft = 60;
 var holdInterval = 0;
@@ -43,7 +43,8 @@ var questions = [
     },
 ];
 
-timer.addEventListener('click', function() {
+//Begins quiz by starting the timer and showing the first question
+timer.addEventListener("click", function() {
     if (holdInterval === 0) {
         holdInterval = setInterval(function () {
             secondsLeft--;
@@ -55,27 +56,29 @@ timer.addEventListener('click', function() {
                 currentTime.textContent = "Time's up!";
             }
         }, 1000);
-    };
+    }
     showQuestion(questionIndex);  
 });
 
 //Displays questions and choices
 function showQuestion(questionIndex) {
+    // Clears existing text
     questionsDiv.innerHTML = "";
     ulCreate.innerHTML = "";
+    // For loops to loop through all info in array
     for (var i = 0; i < questions.length; i++) {
         var userQuestion = questions[questionIndex].title;
         var userChoices = questions[questionIndex].choices;
         questionsDiv.textContent = userQuestion;
-    };
-
+    }
+    // forEach for question choices
     userChoices.forEach(function (newItem) {
         var listItem = document.createElement("li");
         listItem.textContent = newItem;
         questionsDiv.appendChild(ulCreate);
         ulCreate.appendChild(listItem);
         listItem.addEventListener("click", (compare));
-    });
+    })
 };
 
 //Checks answer against choices
